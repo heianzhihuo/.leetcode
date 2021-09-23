@@ -47,8 +47,8 @@ class Solution {
         }
         int a0 = y0+((x0+1)/2)*9+(x0/2);// Alice先在左侧填9
         int a1 = y1+((x1+1)/2)*9+(x1/2);// 
-        System.out.println(a0+","+a1);
-        if(a0>a1){
+        System.out.println(a0+","+a1);// 
+        if((a0>a1 && y0>y1)||(a0<a1)){
             return true;
         }
         // 先在左侧填1
