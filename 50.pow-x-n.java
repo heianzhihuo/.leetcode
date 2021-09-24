@@ -7,24 +7,13 @@
 // @lc code=start
 class Solution {
     public double myPow(double x, int n) {
-        if(n==0){
-            return 1.0;
-        }
-        boolean flag = true;
-        if(n<0){
-            flag = false;
-            n = -n;
-        }
-        Stack<boolean> stack = new Stack<>();
-        while(n>0){
-            if(n%2==0){
-                stack.push(true);
-            }else{
-                stack.push(false);
-            }
-            n /= 2;
-        }
-        return y*y*x;
+        if(n==0) return 1;
+        if(n==-1) return 1/x;
+        if(n==1) return x;
+        double ret = myPow(x,n/2);
+        if(n%2==0) return ret*ret;
+        if(n>0) return ret*ret*x;
+        return ret*ret*1.0/x;
     }
 }
 // @lc code=end
