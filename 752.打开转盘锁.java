@@ -1,3 +1,7 @@
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+
 /*
  * @lc app=leetcode.cn id=752 lang=java
  *
@@ -78,7 +82,55 @@
 // @lc code=start
 class Solution {
     public int openLock(String[] deadends, String target) {
+        boolean[] visited = new boolean[10000];
+        for(String dead:deadends){
+            visited[Integer.parseInt(dead)] = true; 
+        }
+        int ret = 0;
+        List<String> cur = new LinkedList<>();
+        cur.add("0000");
+        // System.out.println(getAdj("0000"));
+        while(!cur.isEmpty()){
+            List<String> next = new LinkedList<>();
+            for(String kk:cur){
+                if(!visited[Integer.parseInt(kk)]){
+                    if(kk.equals(target)){
+                        return ret;
+                    }
+                    visited[Integer.parseInt(kk)] = true;
+                    List<String> adj = getAdj(kk);
+                    for(String aa:adj){
+                        if(!visited[Integer.parseInt(aa)]){
+                            next.add(aa);
+                        }
+                    }
+                }
+            }
+            ret++;
+            cur = next;
+        }
+        return -1;
+    }
+    
+    public List<String> getAdj(String cur){
+        List<String> adj = new ArrayList<>();
+        for(int i=0;i<4;i++){
+            String a = cur.substring(0,i);
+            String b = cur.substring(i+1,4);
+            char ch = cur.charAt(i);
+            if(ch=='0'){
+                adj.add(a+'9'+b);
+            }else{
+                adj.add(a+(char)(ch-1)+b);
+            }
+            if(ch=='9'){
+                adj.add(a+'0'+b);
+            }else{
+                adj.add(a+(char)(ch+1)+b);
+            }
 
+        }
+        return adj;
     }
 }
 // @lc code=end
